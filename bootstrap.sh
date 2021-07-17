@@ -58,7 +58,7 @@ fi
 print "info" "Installing Maven."
 [ -d ${HOME}/mvn ] && rm -rf ${HOME}/mvn
 DWN_SUFIX=$(echo ${MVN_DOWNLOAD_LOCATION} | awk -F. '{ print $NF }')
-wget ${MVN_DOWNLOAD_LOCATION} && tar -zxvf apache-maven*.${DWN_SUFIX} && \
+wget --quiet ${MVN_DOWNLOAD_LOCATION} && tar -zxvf apache-maven*.${DWN_SUFIX} && \
 rm -f apache-maven*.${DWN_SUFIX} && mv ${HOME}/apache-maven* ${HOME}/mvn >/dev/null 
 if [ $? -ne 0 ]
 then
@@ -68,7 +68,7 @@ fi
 
 print "info" "Installing Spark."
 [ -d ${HOME}/spark ] && rm -rf ${HOME}/spark
-wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
+wget --quiet https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
 tar -zxvf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && mv spark-${SPARK_VERSION}-bin-hadoop2.7 spark && \
 rm -f spark-${SPARK_VERSION}-bin-hadoop2.7.tgz >/dev/null 
 if [ $? -ne 0 ]
@@ -79,7 +79,7 @@ fi
 
 print "info" "Installing Hadoop."
 [ -d ${HOME}/hadoop ] && rm -rf ${HOME}/hadoop
-wget https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
+wget --quiet https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
 tar -zxvf hadoop-${HADOOP_VERSION}.tar.gz && mv hadoop-${HADOOP_VERSION} hadoop && \
 rm -f hadoop-${HADOOP_VERSION}.tar.gz >/dev/null 
 if [ $? -ne 0 ]
@@ -91,7 +91,7 @@ fi
 print "info" "Installing Redshift Driver."
 [ -f ${HOME}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar ] && \
 rm -rf ${HOME}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar
-wget https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/${RS_DRIVER_VERSION}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar \
+wget --quiet https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/${RS_DRIVER_VERSION}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar \
 >/dev/null
 if [ $? -ne 0 ]
 then
