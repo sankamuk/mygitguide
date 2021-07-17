@@ -7,10 +7,6 @@
 
 source ~/.bashrc
 
-red=$'\e[1;31m'
-grn=$'\e[1;32m'
-end=$'\e[0m'
-
 MVN_DOWNLOAD_LOCATION="https://mirrors.estointernet.in/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz"
 SPARK_VERSION="2.4.8"
 HADOOP_VERSION="2.7.3"
@@ -29,9 +25,9 @@ print(){
   msg="$2"
   if [ $(echo ${msg_t} | grep -qi "error" ; echo $?) -eq 0 ]
   then
-    printf "[%-20s] [%-5s] %-100s\n" "$(date)" "${red}${msg_t}${end}" "$msg"
+    printf "[%-20s] [%-5s] %-100s\n" "$(date)" "${msg_t}" "$msg"
   else
-    printf "[%-20s] [%-5s] %-100s\n" "$(date)" "${grn}${msg_t}${end}" "$msg"
+    printf "[%-20s] [%-5s] %-100s\n" "$(date)" "${msg_t}" "$msg"
   fi
 
 }
@@ -40,8 +36,8 @@ print(){
 print "info" "Bootstraping pipeline."
 
 print "info" "Installing JDK."
-sudo yum install -y -q java-${JDK_VERSION}-openjdk.x86_64 && \
-sudo yum install -y -q java-${JDK_VERSION}-openjdk-devel.x86_64
+yum install -y -q java-${JDK_VERSION}-openjdk.x86_64 && \
+yum install -y -q java-${JDK_VERSION}-openjdk-devel.x86_64
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install JDK."
@@ -49,7 +45,7 @@ then
 fi
 
 print "info" "Installing Git."
-sudo yum install -y -q git
+yum install -y -q git
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Git."
