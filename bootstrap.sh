@@ -5,6 +5,7 @@
 # Commit History:
 # 15/07/21 - Initial version
 
+cd ~/
 source ~/.bashrc
 
 MVN_DOWNLOAD_LOCATION="https://mirrors.estointernet.in/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz"
@@ -36,8 +37,8 @@ print(){
 print "info" "Bootstraping pipeline."
 
 print "info" "Installing JDK."
-yum install -y -q java-${JDK_VERSION}-openjdk.x86_64 && \
-yum install -y -q java-${JDK_VERSION}-openjdk-devel.x86_64
+yum install -y -q java-${JDK_VERSION}-openjdk.x86_64 && sleep 10s && \
+yum install -y -q java-${JDK_VERSION}-openjdk-devel.x86_64 && sleep 10s
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install JDK."
@@ -62,6 +63,7 @@ then
   print "error" "Cannot install Maven."
   exit 1
 fi
+ls -ltr $HOME
 
 print "info" "Installing Spark."
 [ -d ${HOME}/spark ] && rm -rf ${HOME}/spark
@@ -73,6 +75,7 @@ then
   print "error" "Cannot install Spark."
   exit 1
 fi
+ls -ltr $HOME
 
 print "info" "Installing Hadoop."
 [ -d ${HOME}/hadoop ] && rm -rf ${HOME}/hadoop
@@ -84,6 +87,7 @@ then
   print "error" "Cannot install Hadoop."
   exit 1
 fi
+ls -ltr $HOME
 
 print "info" "Installing Redshift Driver."
 [ -f ${HOME}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar ] && \
@@ -96,6 +100,7 @@ then
   print "error" "Cannot install Driver."
   exit 1
 fi
+ls -ltr $HOME
 
 print "info" "Installing Git Repo for Kinesis driver."
 [ -d ${HOME}/${KS_REPO_NAME} ] && rm -rf ${HOME}/${KS_REPO_NAME}
@@ -122,6 +127,7 @@ fi
 mv ${HOME}/${KS_REPO_NAME}/target/${KS_CONNECTOR_NAME} ${HOME}/
 cd ${HOME}
 rm -rf ${HOME}/${KS_REPO_NAME}
+ls -ltr $HOME
 
 print "info" "Installing Application Git Repo."
 [ -d ${HOME}/${GIT_REPO_NAME} ] && rm -rf ${HOME}/${GIT_REPO_NAME}
@@ -131,6 +137,7 @@ then
   print "error" "Cannot install Git Repo."
   exit 1
 fi
+ls -ltr $HOME
 
 print "info" "Validating pipeline script."
 if [ ! -f ${HOME}/${GIT_REPO_NAME}/${PIPELINE_SCRIPT} ]
