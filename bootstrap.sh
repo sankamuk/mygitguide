@@ -58,7 +58,7 @@ fi
 print "info" "Installing Maven."
 [ -d ${HOME}/mvn ] && rm -rf ${HOME}/mvn
 DWN_SUFIX=$(echo ${MVN_DOWNLOAD_LOCATION} | awk -F. '{ print $NF }')
-wget --quiet ${MVN_DOWNLOAD_LOCATION} && tar -zxf apache-maven*.${DWN_SUFIX} && \
+wget ${MVN_DOWNLOAD_LOCATION} && tar -zxvf apache-maven*.${DWN_SUFIX} && \
 rm -f apache-maven*.${DWN_SUFIX} && mv ${HOME}/apache-maven* ${HOME}/mvn  
 if [ $? -ne 0 ]
 then
@@ -69,8 +69,8 @@ ls -ltr $HOME
 
 print "info" "Installing Spark."
 [ -d ${HOME}/spark ] && rm -rf ${HOME}/spark
-wget --quiet https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
-tar -zxf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && mv spark-${SPARK_VERSION}-bin-hadoop2.7 spark && \
+wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
+tar -zxvf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && mv spark-${SPARK_VERSION}-bin-hadoop2.7 spark && \
 rm -f spark-${SPARK_VERSION}-bin-hadoop2.7.tgz 
 if [ $? -ne 0 ]
 then
@@ -81,8 +81,8 @@ ls -ltr $HOME
 
 print "info" "Installing Hadoop."
 [ -d ${HOME}/hadoop ] && rm -rf ${HOME}/hadoop
-wget --quiet https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
-tar -zxf hadoop-${HADOOP_VERSION}.tar.gz && mv hadoop-${HADOOP_VERSION} hadoop && \
+wget https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
+tar -zxvf hadoop-${HADOOP_VERSION}.tar.gz && mv hadoop-${HADOOP_VERSION} hadoop && \
 rm -f hadoop-${HADOOP_VERSION}.tar.gz 
 if [ $? -ne 0 ]
 then
