@@ -9,6 +9,7 @@ cd ~/
 source ~/.bashrc
 
 yum update -y
+echo "Home: ${HOME}"
 
 MVN_DOWNLOAD_LOCATION="https://mirrors.estointernet.in/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz"
 SPARK_VERSION="2.4.8"
@@ -59,13 +60,13 @@ print "info" "Installing Maven."
 [ -d ${HOME}/mvn ] && rm -rf ${HOME}/mvn
 DWN_SUFIX=$(echo ${MVN_DOWNLOAD_LOCATION} | awk -F. '{ print $NF }')
 wget ${MVN_DOWNLOAD_LOCATION} && tar -zxvf apache-maven*.${DWN_SUFIX} && \
-rm -f apache-maven*.${DWN_SUFIX} && mv ${HOME}/apache-maven* ${HOME}/mvn  
+rm -f apache-maven*.${DWN_SUFIX} && mv ~/apache-maven* ~/mvn  
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Maven."
   exit 1
 fi
-ls -ltr $HOME
+ls -ltr ~/
 
 print "info" "Installing Spark."
 [ -d ${HOME}/spark ] && rm -rf ${HOME}/spark
