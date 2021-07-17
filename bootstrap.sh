@@ -38,7 +38,7 @@ print "info" "Bootstraping pipeline."
 
 print "info" "Installing JDK."
 yum install -y -q java-${JDK_VERSION}-openjdk.x86_64 && sleep 10s && \
-yum install -y -q java-${JDK_VERSION}-openjdk-devel.x86_64 && sleep 10s
+yum install -y -q java-${JDK_VERSION}-openjdk-devel.x86_64 && sleep 30s
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install JDK."
@@ -57,7 +57,7 @@ print "info" "Installing Maven."
 [ -d ${HOME}/mvn ] && rm -rf ${HOME}/mvn
 DWN_SUFIX=$(echo ${MVN_DOWNLOAD_LOCATION} | awk -F. '{ print $NF }')
 wget --quiet ${MVN_DOWNLOAD_LOCATION} && tar -zxf apache-maven*.${DWN_SUFIX} && \
-rm -f apache-maven*.${DWN_SUFIX} && mv ${HOME}/apache-maven* ${HOME}/mvn >/dev/null 2>&1
+rm -f apache-maven*.${DWN_SUFIX} && mv ${HOME}/apache-maven* ${HOME}/mvn >/dev/null 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Maven."
@@ -69,7 +69,7 @@ print "info" "Installing Spark."
 [ -d ${HOME}/spark ] && rm -rf ${HOME}/spark
 wget --quiet https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
 tar -zxf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && mv spark-${SPARK_VERSION}-bin-hadoop2.7 spark && \
-rm -f spark-${SPARK_VERSION}-bin-hadoop2.7.tgz >/dev/null 2>&1
+rm -f spark-${SPARK_VERSION}-bin-hadoop2.7.tgz >/dev/null 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Spark."
@@ -81,7 +81,7 @@ print "info" "Installing Hadoop."
 [ -d ${HOME}/hadoop ] && rm -rf ${HOME}/hadoop
 wget --quiet https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
 tar -zxf hadoop-${HADOOP_VERSION}.tar.gz && mv hadoop-${HADOOP_VERSION} hadoop && \
-rm -f hadoop-${HADOOP_VERSION}.tar.gz >/dev/null 2>&1
+rm -f hadoop-${HADOOP_VERSION}.tar.gz >/dev/null 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Hadoop."
@@ -105,7 +105,7 @@ ls -ltr $HOME
 print "info" "Installing Git Repo for Kinesis driver."
 [ -d ${HOME}/${KS_REPO_NAME} ] && rm -rf ${HOME}/${KS_REPO_NAME}
 [ -d ${HOME}/${KS_CONNECTOR_NAME} ] && rm -rf ${HOME}/${KS_CONNECTOR_NAME}
-git clone ${KS_REPO_LOCATION} >/dev/null 2>&1
+git clone ${KS_REPO_LOCATION} >/dev/null 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Git Repo."
@@ -118,7 +118,7 @@ then
   print "error" "Cannot switch to required branch."
   exit 1
 fi
-${HOME}/mvn/bin/mvn install -DskipTests >/dev/null 2>&1
+${HOME}/mvn/bin/mvn install -DskipTests >/dev/null 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot build connector jar."
@@ -131,7 +131,7 @@ ls -ltr $HOME
 
 print "info" "Installing Application Git Repo."
 [ -d ${HOME}/${GIT_REPO_NAME} ] && rm -rf ${HOME}/${GIT_REPO_NAME}
-git clone ${GIT_REPO_LOCATION} >/dev/null 2>&1
+git clone ${GIT_REPO_LOCATION} >/dev/null 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Git Repo."
