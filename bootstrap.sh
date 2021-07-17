@@ -7,6 +7,7 @@
 
 cd ~/
 source ~/.bashrc
+sudo yum update -y
 
 MVN_DOWNLOAD_LOCATION="https://mirrors.estointernet.in/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz"
 SPARK_VERSION="2.4.8"
