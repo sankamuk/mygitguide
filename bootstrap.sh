@@ -6,7 +6,7 @@
 # 15/07/21 - Initial version
 
 cd ~/
-HOME=$(pwd)
+export HOME=$(pwd)
 source ~/.bashrc
 sudo yum update -y
 
