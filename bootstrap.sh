@@ -8,6 +8,8 @@
 cd ~/
 source ~/.bashrc
 
+yum update -y
+
 MVN_DOWNLOAD_LOCATION="https://mirrors.estointernet.in/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz"
 SPARK_VERSION="2.4.8"
 HADOOP_VERSION="2.7.3"
@@ -37,8 +39,8 @@ print(){
 print "info" "Bootstraping pipeline."
 
 print "info" "Installing JDK."
-yum install -y -q java-${JDK_VERSION}-openjdk.x86_64 && sleep 10s && \
-yum install -y -q java-${JDK_VERSION}-openjdk-devel.x86_64 && sleep 30s
+yum install -y java-${JDK_VERSION}-openjdk.x86_64 && sleep 10s && \
+yum install -y java-${JDK_VERSION}-openjdk-devel.x86_64 && sleep 30s
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install JDK."
@@ -46,7 +48,7 @@ then
 fi
 
 print "info" "Installing Git."
-yum install -y -q git
+yum install -y git
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Git."
@@ -57,7 +59,7 @@ print "info" "Installing Maven."
 [ -d ${HOME}/mvn ] && rm -rf ${HOME}/mvn
 DWN_SUFIX=$(echo ${MVN_DOWNLOAD_LOCATION} | awk -F. '{ print $NF }')
 wget --quiet ${MVN_DOWNLOAD_LOCATION} && tar -zxf apache-maven*.${DWN_SUFIX} && \
-rm -f apache-maven*.${DWN_SUFIX} && mv ${HOME}/apache-maven* ${HOME}/mvn >/dev/null 
+rm -f apache-maven*.${DWN_SUFIX} && mv ${HOME}/apache-maven* ${HOME}/mvn  
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Maven."
@@ -69,7 +71,7 @@ print "info" "Installing Spark."
 [ -d ${HOME}/spark ] && rm -rf ${HOME}/spark
 wget --quiet https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
 tar -zxf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && mv spark-${SPARK_VERSION}-bin-hadoop2.7 spark && \
-rm -f spark-${SPARK_VERSION}-bin-hadoop2.7.tgz >/dev/null 
+rm -f spark-${SPARK_VERSION}-bin-hadoop2.7.tgz 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Spark."
@@ -81,7 +83,7 @@ print "info" "Installing Hadoop."
 [ -d ${HOME}/hadoop ] && rm -rf ${HOME}/hadoop
 wget --quiet https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
 tar -zxf hadoop-${HADOOP_VERSION}.tar.gz && mv hadoop-${HADOOP_VERSION} hadoop && \
-rm -f hadoop-${HADOOP_VERSION}.tar.gz >/dev/null 
+rm -f hadoop-${HADOOP_VERSION}.tar.gz 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Hadoop."
@@ -93,8 +95,7 @@ print "info" "Installing Redshift Driver."
 [ -f ${HOME}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar ] && \
 rm -rf ${HOME}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar
 wget --quiet \
-https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/${RS_DRIVER_VERSION}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar \
->/dev/null 2>&1
+https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/${RS_DRIVER_VERSION}/RedshiftJDBC4-no-awssdk-${RS_DRIVER_VERSION}.jar 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Driver."
@@ -105,7 +106,7 @@ ls -ltr $HOME
 print "info" "Installing Git Repo for Kinesis driver."
 [ -d ${HOME}/${KS_REPO_NAME} ] && rm -rf ${HOME}/${KS_REPO_NAME}
 [ -d ${HOME}/${KS_CONNECTOR_NAME} ] && rm -rf ${HOME}/${KS_CONNECTOR_NAME}
-git clone ${KS_REPO_LOCATION} >/dev/null 
+git clone ${KS_REPO_LOCATION} 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Git Repo."
@@ -131,7 +132,7 @@ ls -ltr $HOME
 
 print "info" "Installing Application Git Repo."
 [ -d ${HOME}/${GIT_REPO_NAME} ] && rm -rf ${HOME}/${GIT_REPO_NAME}
-git clone ${GIT_REPO_LOCATION} >/dev/null 
+git clone ${GIT_REPO_LOCATION} 
 if [ $? -ne 0 ]
 then
   print "error" "Cannot install Git Repo."
